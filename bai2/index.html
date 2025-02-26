@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính lãi suất</title>
+    <link rel="stylesheet" href="../bai2/index.css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div>
+        <span>Nhập số tiền:    </span><input type="number" id="money" placeholder="Nhập số tiền..." required> <br><br>
+        <span>Nhập số % lãi:  </span><input type="number" id="interest" placeholder="Nhập số % lãi" required> <br><br>
+        <span>Nhập mục tiêu: </span><input type="number" id="goal" placeholder="Nhập mục tiêu" required> <br><br>
+        <button onclick="calculate()">Tính toán</button>
+    </div> 
+    <div id="result"></div>
+
+    <script>
+        function calculate() {
+            let money = parseFloat(document.getElementById("money").value);
+            let interest = parseFloat(document.getElementById("interest").value) / 100;
+            let goal = parseFloat(document.getElementById("goal").value);
+            let year = 0;
+            let result = "<h2>Kết quả:</h2><table border='1' cellpadding='5'><tr><th>Năm</th><th>Tiền lãi</th><th>Tổng</th></tr>";
+
+            if (isNaN(money) || isNaN(interest) || isNaN(goal) || money <= 0 || interest < 0 || goal <= money) {
+                alert("Vui lòng nhập đúng số tiền, lãi suất và mục tiêu!");
+                return;
+            }
+
+            while (money < goal) {
+                let interestAmount = money * interest;
+                money += interestAmount;
+                year++;
+                result += `<tr><td>${year}</td><td>${interestAmount.toFixed(2)}</td><td>${money.toFixed(2)}</td></tr>`;
+            }
+
+            result += "</table>";
+            document.getElementById("result").innerHTML = result;
+        }
+    </script>
+</body>
+</html>
